@@ -12,6 +12,13 @@ update_entity:
       selector:
         entity:
           multiple: true
+    device_id:
+      name: Device
+      description: The device to associate this entity with
+      required: false
+      example: [d333ceb74c7beef24a40b1de82c37ed2]
+      selector:
+        device:
     aliases:
       name: Aliases
       description: Single alias or a list of aliases
@@ -85,3 +92,60 @@ remove_entity:
       selector:
         entity:
           multiple: true
+
+create_device:
+  name: Create device
+  description: Create device in registry
+  fields:
+    hw_version:
+      name: Hardware Version
+      description: The version of the device hardware
+      required: false
+      example: 0.42.1
+      selector:
+        text:
+    manufacturer:
+      name: Device manufacturer
+      description: The name of the hardware manufacturer
+      required: false
+      example: GE
+      selector:
+        text:
+    model:
+      name: Device model
+      description: The model of the device
+      required: false
+      example: T100
+      selector:
+        text:
+    area_id:
+      name: Area
+      description: Area to set
+      required: false
+      example: bedroom
+      selector:
+        area:
+    disabled_by:
+      name: Disabled by
+      description: Who disabled this device
+      example: false
+      selector:
+        boolean:
+    hidden:
+      name: Hidden
+      description: Whether to set entity as hidden
+      example: true
+      selector:
+        boolean:
+    name:
+      name: Name
+      description: Name to set
+      example: Bedroom Temperature
+      selector:
+        text:
+    identifier_domains:
+      name: Identifier domains
+      description: Used for automatic discovery (domains)
+      example: [["smartthings", "blah"]]
+      required: true
+      selector:

@@ -26,9 +26,13 @@ from .const import ATTR_DISABLED
 from .const import ATTR_DISABLED_BY
 from .const import ATTR_HIDDEN
 from .const import ATTR_HIDDEN_BY
+from .const import ATTR_HW_VERSION
+from .const import ATTR_MANUFACTURER
+from .const import ATTR_MODEL
 from .const import ATTR_NEW_ENTITY_ID
 from .const import ATTR_OPTIONS
 from .const import ATTR_OPTIONS_DOMAIN
+from .const import ATTR_SW_VERSION
 from .const import DOMAIN
 from .const import SERVICE_REMOVE_ENTITY
 from .const import SERVICE_UPDATE_ENTITY
@@ -43,15 +47,26 @@ SCHEMA_UPDATE_ENTITY = vol.Schema(
     {
         vol.Required(ATTR_ENTITY_ID): cv.entity_ids,
         vol.Optional(ATTR_ALIASES): vol.All(cv.ensure_list_csv, [cv.string]),
-        vol.Optional(ATTR_AREA_ID): vol.Any(None, str),
-        vol.Optional(ATTR_DEVICE_CLASS): vol.Any(None, str),
-        vol.Optional(ATTR_ICON): vol.Any(None, str),
-        vol.Optional(ATTR_NAME): vol.Any(None, str),
-        vol.Optional(ATTR_NEW_ENTITY_ID): cv.string,
-        vol.Inclusive(ATTR_OPTIONS_DOMAIN, "entity_option"): vol.Any(None, str),
-        vol.Inclusive(ATTR_OPTIONS, "entity_option"): vol.Any(None, dict),
-        vol.Optional(ATTR_DISABLED): bool,
-        vol.Optional(ATTR_HIDDEN): bool,
+        vol.Optional(ATTR_AREA_ID): vol.Any(None, cv.string),
+        vol.Optional(ATTR_DEVICE_CLASS): vol.Any(None, cv.string),
+        vol.Optional(ATTR_ICON): vol.Any(None, cv.icon),
+        vol.Optional(ATTR_NAME): vol.Any(None, cv.string),
+        vol.Optional(ATTR_NEW_ENTITY_ID): cv.entity_id,
+        vol.Inclusive(ATTR_OPTIONS_DOMAIN, "entity_option"): vol.Any(None, cv.string),
+        vol.Inclusive(ATTR_OPTIONS, "entity_option"): vol.Any(
+            None, cv.schema_with_slug_keys(vol.Any)
+        ),
+        vol.Optional(ATTR_DISABLED): cv.boolean,
+        vol.Optional(ATTR_HIDDEN): cv.boolean,
+    }
+)
+SCHEMA_CREATE_DEVICE = vol.Schema(
+    {
+        vol.Required(ATTR_NAME): cv.string,
+        vol.Optional(ATTR_MANUFACTURER): cv.string,
+        vol.Optional(ATTR_MODEL): cv.string,
+        vol.Optional(ATTR_HW_VERSION): cv.string,
+        vol.Optional(ATTR_SW_VERSION): cv.string,
     }
 )
 
